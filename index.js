@@ -69,7 +69,7 @@ WHERE username = '${username};'`;
   }
 });
 
-app.post("/login", async (request, response) => {
+app.post("/login/", async (request, response) => {
   const { username, password } = request.body;
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}'`;
   const dbUser = await db.get(selectUserQuery);
@@ -78,6 +78,8 @@ app.post("/login", async (request, response) => {
     response.send("Invalid User");
   } else {
     const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
+    console.log(dbUser.password);
+    console.log(password);
     console.log(isPasswordMatched);
     if (isPasswordMatched === true) {
       response.send("Login Success!");
