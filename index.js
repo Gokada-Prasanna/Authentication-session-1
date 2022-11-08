@@ -5,7 +5,7 @@ const sqlite3 = require("sqlite3");
 const bcrypt = require("bcrypt");
 const app = express();
 app.use(express.json());
-const dbPath = path.join(__dirname, goodreads.db);
+const dbPath = path.join(__dirname, "goodreads.db");
 
 let db = null;
 
@@ -78,6 +78,7 @@ app.post("/login", async (request, response) => {
     response.send("Invalid User");
   } else {
     const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
+    console.log(isPasswordMatched);
     if (isPasswordMatched === true) {
       response.send("Login Success!");
     } else {
